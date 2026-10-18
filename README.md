@@ -2,7 +2,8 @@
 
 Simulador de algoritmos de recomendación y conocimiento disperso. Es una red social simulada donde cada persona puede ver cómo un algoritmo forma su burbuja de filtro, y cómo se relaciona eso con la filosofía de Friedrich Hayek.
 
-- **En línea:** https://claude.ai/artifact/UfyErh7UnnFetZGH5qiJSt
+- **En línea:** http://feed-hayek.site (pronto https://feed-hayek.site, en cuanto GitHub termine de emitir el certificado)
+- **Repositorio:** https://github.com/froher-45/feed-hayek (rama `develop`)
 - **Sin internet:** doble clic en `index.html`
 - **Pantalla para tu puesto en la exposición:** doble clic en `kiosco.html` (ver abajo)
 
@@ -18,25 +19,25 @@ Para cuando estés en un puesto con tu computadora y la gente pase caminando. Es
 2. Presiona **F11** en el navegador para pantalla completa.
 3. Déjala corriendo. No necesita que la toques ni que esté conectada a internet, salvo para cargar las fuentes y el generador de QR la primera vez.
 
-**Antes de la exposición, actualiza el QR:** abre `kiosco.html` con el Bloc de notas (o cualquier editor de texto) y busca esta línea cerca del final del archivo:
+**Si algún día cambias de dominio:** abre `kiosco.html` con el Bloc de notas (o cualquier editor de texto) y busca esta línea cerca del final del archivo:
 
 ```js
-const SITE_URL = 'https://claude.ai/artifact/UfyErh7UnnFetZGH5qiJSt';
+const SITE_URL = 'http://feed-hayek.site';
 ```
 
-Cambia la dirección por el enlace de GitHub Pages cuando lo tengas listo, guarda el archivo y vuelve a abrirlo. El QR y el texto de abajo se generan solos a partir de esa línea.
+Cambia la dirección, guarda el archivo y vuelve a abrirlo. El QR y el texto de abajo se generan solos a partir de esa línea. Cuando el candado de HTTPS quede activo en GitHub Pages, cambia el `http://` por `https://`.
 
 **Si quieres un video en vez de la pantalla en vivo:** deja `kiosco.html` corriendo y grábala con el grabador de pantalla de Windows (**Win + Alt + R**) o con Clipchamp (viene gratis en Windows 11). Es más sencillo y se ve mejor que generar un video con IA, porque es exactamente lo que la gente verá en su teléfono.
 
-## Antes de exponer: activar el enlace público
+## Dónde está publicado
 
-El enlace está **privado** por ahora. Para que el QR funcione con cualquier persona:
+El sitio corre en **GitHub Pages**, publicado desde la rama `develop` del repositorio, con el dominio propio `feed-hayek.site`:
 
-1. Abre el enlace en claude.ai.
-2. Usa el menú **Compartir** de la página y activa el acceso público por enlace.
-3. Prueba el enlace desde un teléfono que no tenga tu sesión iniciada.
+- El archivo `CNAME` en la raíz del repositorio le dice a GitHub Pages qué dominio usar.
+- En el DNS del dominio hay 4 registros **A** apuntando a las IPs de GitHub Pages (185.199.108/109/110/111.153) y un **CNAME** de `www` apuntando a `froher-45.github.io`.
+- Cada `git push` a `develop` publica los cambios solo, en uno o dos minutos.
 
-El código QR se agregará más adelante. Si prefieres otro hosting, la carpeta funciona tal cual en cualquier servidor estático (por ejemplo, arrastrándola a Netlify Drop).
+Si alguna vez necesitas revisar o cambiar esto: **Settings → Pages** del repositorio en GitHub.
 
 ## Archivos
 
