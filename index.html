@@ -1,0 +1,224 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Feed de Hayek</title>
+<meta name="description" content="Simulador de algoritmos de recomendación y conocimiento disperso.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<link rel="stylesheet" href="styles.css">
+
+<!-- Pantalla de introducción -->
+<div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+  <div class="intro-inner">
+    <div class="intro-text">
+      <p class="intro-brand"><span class="brand-mark" aria-hidden="true"></span>El Feed de Hayek</p>
+      <h1 id="intro-title">¿Te has preguntado por qué ves lo que ves en tus redes sociales?</h1>
+      <p class="intro-lede">Cada me gusta, cada comentario y cada publicación que pasas de largo le enseña algo a un algoritmo. Aquí puedes verlo en acción y descubrir cómo, poco a poco, decide por ti.</p>
+      <button class="btn btn-primary intro-cta" id="intro-start">Descúbrelo aquí
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <p class="intro-foot">Simulación educativa · Proyecto de curso · UdeO 2026</p>
+    </div>
+    <div class="intro-orbit" id="intro-orbit" aria-hidden="true">
+      <span class="orbit-core"></span>
+    </div>
+  </div>
+</div>
+
+<div class="app">
+  <!-- Navegación lateral (escritorio) -->
+  <aside class="sidenav">
+    <a class="brand" href="#inicio" aria-label="El Feed de Hayek, inicio">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">El Feed<br>de Hayek</span>
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#inicio" data-nav="inicio">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z"/></svg>
+        <span>Inicio</span>
+      </a>
+      <a href="#burbuja" data-nav="burbuja">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>
+        <span>Tu burbuja</span>
+      </a>
+      <a href="#comparar" data-nav="comparar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3.5"/><circle cx="16.5" cy="9.5" r="3"/><path d="M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14 20c0-2.6 1.1-4.6 3-5.4 2.6.4 5 2.4 5 5.4"/></svg>
+        <span>Comparar</span>
+      </a>
+      <a href="#hayek" data-nav="hayek">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+        <span>Modo Hayek</span>
+      </a>
+    </nav>
+    <p class="sidenav-note">Simulación educativa.<br>Proyecto de curso · UdeO 2026</p>
+  </aside>
+
+  <!-- Columna central -->
+  <main class="center">
+    <header class="center-head">
+      <a class="brand brand-compact" href="#inicio" aria-label="Inicio"><span class="brand-mark" aria-hidden="true"></span></a>
+      <h1 id="view-title">Para ti</h1>
+      <a class="bubble-pill" href="#burbuja" id="bubble-pill" aria-label="Ver tu burbuja"></a>
+    </header>
+
+    <!-- INICIO: feed algorítmico -->
+    <section class="view" data-view="inicio">
+      <div class="onboard" id="onboard">
+        <div>
+          <p class="onboard-title">Esta red social aprende de ti</p>
+          <p><b>Reacciona</b>, <b>comenta</b> o <b>comparte</b> lo que te interese, y desliza lo que no. Pasar de largo también cuenta. Mientras más uses el feed, más se parecerá a ti… y menos a todo lo demás. Toca <b>Inicio</b> para ver tus nuevas recomendaciones.</p>
+        </div>
+        <button class="icon-btn" id="onboard-close" aria-label="Cerrar aviso">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div id="feed" class="feed"></div>
+      <div id="feed-sentinel" class="sentinel">Cargando más publicaciones…</div>
+    </section>
+
+    <!-- TU BURBUJA -->
+    <section class="view" data-view="burbuja" hidden>
+      <div class="pad stack">
+        <p class="lede">Esto es lo que el algoritmo ha concluido sobre ti a partir de tus clics. Nadie le dijo quién eres: lo dedujo.</p>
+        <div id="bubble-full"></div>
+        <div class="explain">
+          <h2>Cómo decide el algoritmo</h2>
+          <ol class="steps">
+            <li><b>Te observa.</b> Registra cada reacción, comentario y publicación que compartes, cada «mostrar menos» y cada publicación que pasas de largo.</li>
+            <li><b>Te puntúa.</b> Cada tema tiene un puntaje. Las reacciones suman entre 1 y 2 puntos, un comentario 2 y compartir 2.5, porque compartir dice más de ti. «No me gusta», pasar de largo y «mostrar menos» lo bajan.</li>
+            <li><b>No distingue emociones.</b> «Me enoja» también suma 2 puntos: para el algoritmo, enojarte es interés. No es exagerado: según documentos internos revelados en 2021, Facebook llegó a darle a las reacciones con emoji, incluida «me enoja», cinco veces el peso de un me gusta.</li>
+            <li><b>Amplifica.</b> Eleva esos puntajes al cubo. Si un tema tiene el doble de puntos, aparece ocho veces más. Por eso bastan dos o tres interacciones para que tu feed cambie.</li>
+            <li><b>Deja de explorar.</b> Empieza con 40 % de «curiosidad» para mostrarte cosas al azar. Con cada interacción cree conocerte mejor y la curiosidad baja hasta 3 %.</li>
+          </ol>
+          <p class="fineprint">El nivel de burbuja mide qué tan concentrado está lo que el algoritmo cree de ti (entropía de Shannon de sus probabilidades). 0 % significa que reparte sus apuestas entre todos los temas; 100 %, que las pone todas en uno. Solo cambia cuando interactúas o pasas de largo una publicación: refrescar el feed no lo mueve.</p>
+        </div>
+        <div class="row-btns">
+          <button class="btn" id="btn-reset">Reiniciar mi feed</button>
+          <button class="btn btn-quiet" id="btn-auto">Simular 10 interacciones</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARAR -->
+    <section class="view" data-view="comparar" hidden>
+      <div class="pad stack">
+        <p class="lede">Ana y Juan entran a la misma plataforma. Al principio ven exactamente lo mismo. El algoritmo no sabe qué les gusta: solo observa sus interacciones.</p>
+        <div class="row-btns">
+          <button class="btn btn-primary" id="duo-run">Simular 40 interacciones</button>
+          <button class="btn btn-quiet" id="duo-reset">Reiniciar</button>
+        </div>
+        <div id="duo-overlap" class="overlap"></div>
+        <div class="duo">
+          <div id="duo-0" class="duo-col"></div>
+          <div id="duo-1" class="duo-col"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODO HAYEK -->
+    <section class="view" data-view="hayek" hidden>
+      <div class="subtabs" role="tablist">
+        <button role="tab" class="subtab" data-sub="filosofia" aria-selected="true">Su filosofía</button>
+        <button role="tab" class="subtab" data-sub="pruebalo" aria-selected="false">Pruébalo</button>
+      </div>
+
+      <div class="sub" data-subview="filosofia">
+        <article class="essay">
+          <p class="eyebrow">Friedrich A. von Hayek · 1899–1992</p>
+          <h2 class="essay-title">Nadie sabe mejor que tú lo que quieres ver</h2>
+          <p class="essay-lede">Hayek fue un economista y filósofo austriaco, Premio Nobel de Economía en 1974. Dedicó su obra a una pregunta: ¿puede una autoridad central decidir por millones de personas mejor de lo que ellas deciden por sí mismas? Su respuesta fue no. Un algoritmo de recomendación es, en pequeño, ese planificador central.</p>
+
+          <section class="concept">
+            <p class="concept-src">Camino de servidumbre · 1944</p>
+            <h3>El planificador central</h3>
+            <p><span class="label">La idea.</span> Cuando un solo centro decide por todos, termina imponiendo sus propios fines sobre los de cada persona. Planificar para todos obliga a elegir por todos.</p>
+            <p><span class="label">En tu feed.</span> La plataforma decide qué entra en tu feed y en qué orden. Su objetivo es que pases más tiempo en la app, y ese objetivo no siempre coincide con el tuyo.</p>
+            <a class="concept-link" href="#inicio">Míralo en tu propio feed →</a>
+          </section>
+
+          <section class="concept">
+            <p class="concept-src">Camino de servidumbre · 1944</p>
+            <h3>La concentración del poder</h3>
+            <p><span class="label">La idea.</span> Para Hayek, quien controla los medios termina controlando los fines. Concentrar decisiones en pocas manos es peligroso, aunque esas manos tengan buenas intenciones.</p>
+            <p><span class="label">En tu feed.</span> Unas pocas empresas definen qué información llega a miles de millones de personas. Dos usuarios de la misma plataforma pueden terminar viviendo realidades casi sin nada en común.</p>
+            <a class="concept-link" href="#comparar">Compara los feeds de Ana y Juan →</a>
+          </section>
+
+          <section class="concept">
+            <p class="concept-src">Derecho, legislación y libertad · 1973</p>
+            <h3>El orden espontáneo</h3>
+            <p><span class="label">La idea.</span> Los órdenes más complejos, como el mercado o el lenguaje, no los diseñó nadie. Surgen cuando cada persona actúa con su propio conocimiento y se coordina con las demás mediante señales, como los precios.</p>
+            <p><span class="label">En tu feed.</span> Un sistema hayekiano no adivinaría por ti. Recibiría tus señales explícitas, te explicaría por qué ves cada cosa y te dejaría decidir cuánto quieres salir de tu burbuja.</p>
+            <button class="concept-link as-link" data-goto-sub="pruebalo">Prueba el Modo Hayek →</button>
+          </section>
+
+          <section class="nuance">
+            <h3>Un matiz importante</h3>
+            <p>Hayek defendía el mercado y la competencia, y las plataformas son empresas privadas, no gobiernos. Por eso la crítica hayekiana no pide que el Estado decida qué ves. Señala algo más profundo: concentrar el conocimiento y las decisiones en un solo centro es un problema, venga de donde venga. La salida es devolver la decisión a quien tiene el conocimiento: tú.</p>
+            <p>Alguien podría responder que el algoritmo funciona como un mercado, porque suma millones de señales. La diferencia es que en un mercado cada persona decide con esas señales; aquí la plataforma las recoge y decide sola, sin explicar cómo y sin que puedas elegir otro sistema.</p>
+          </section>
+
+          <section class="proposal">
+            <h3>La propuesta: un feed hayekiano</h3>
+            <ul class="principles">
+              <li><b>Tú decides.</b> Controlas tus preferencias directamente, en vez de que el algoritmo las adivine.</li>
+              <li><b>Transparencia.</b> Cada publicación dice por qué aparece.</li>
+              <li><b>Sorpresa elegida.</b> Tú decides cuánto contenido distinto quieres ver.</li>
+              <li><b>Competencia entre algoritmos.</b> Puedes elegir quién ordena tu feed. Bluesky ya permite escoger entre feeds creados por terceros, y la Ley de Servicios Digitales de la Unión Europea obliga a las grandes plataformas a ofrecer al menos una opción de feed que no se base en tu perfil.</li>
+            </ul>
+          </section>
+
+          <section class="sources">
+            <h3>Obras de Hayek citadas</h3>
+            <ul>
+              <li><i>Camino de servidumbre</i> (1944)</li>
+              <li><i>Derecho, legislación y libertad</i> (1973–1979)</li>
+            </ul>
+          </section>
+        </article>
+      </div>
+
+      <div class="sub" data-subview="pruebalo" hidden>
+        <div class="pad stack">
+          <p class="lede">Aquí el algoritmo no adivina nada: tú decides cuánto quieres ver de cada tema y cuánta sorpresa aceptas. Cada publicación explica por qué aparece.</p>
+          <div class="controls">
+            <div id="hayek-sliders" class="sliders"></div>
+            <label class="slider-row surprise" for="hayek-surprise">
+              <span class="slider-name">Dosis de sorpresa</span>
+              <input id="hayek-surprise" type="range" min="0" max="50" step="5">
+              <output id="hayek-surprise-out"></output>
+            </label>
+            <div class="row-btns">
+              <button class="btn" id="hayek-new">Nuevo feed</button>
+              <button class="btn btn-quiet" id="hayek-reset">Reiniciar</button>
+            </div>
+          </div>
+          <div id="hayek-summary" class="hayek-summary"></div>
+        </div>
+        <div id="hayek-feed" class="feed"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Columna derecha (escritorio) -->
+  <aside class="rail">
+    <div class="rail-card">
+      <div class="rail-head">
+        <h2 id="rail-title">Tu burbuja</h2>
+        <a href="#burbuja" id="rail-link">Ver detalle</a>
+      </div>
+      <div id="bubble-rail"></div>
+    </div>
+  </aside>
+
+  <!-- Barra inferior (móvil) -->
+  <nav class="tabbar" aria-label="Secciones">
+    <a href="#inicio" data-nav="inicio" aria-label="Inicio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z"/></svg><span>Inicio</span></a>
+    <a href="#burbuja" data-nav="burbuja" aria-label="Tu burbuja"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><span>Burbuja</span></a>
+    <a href="#comparar" data-nav="comparar" aria-label="Comparar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3.5"/><circle cx="16.5" cy="9.5" r="3"/><path d="M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14 20c0-2.6 1.1-4.6 3-5.4 2.6.4 5 2.4 5 5.4"/></svg><span>Comparar</span></a>
+    <a href="#hayek" data-nav="hayek" aria-label="Modo Hayek"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg><span>Hayek</span></a>
+  </nav>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>

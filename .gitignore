@@ -1,0 +1,8 @@
+# Archivos del sistema / de OneDrive
+Thumbs.db
+desktop.ini
+.DS_Store
+~$*
+
+# Sin uso actual en la app (se conserva local por si se necesita)
+logo-universidad.png
