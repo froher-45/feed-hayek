@@ -129,7 +129,7 @@ svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width:
 
 /* interruptor de modo claro / oscuro */
 .theme-switch {
-  --w: 46px; --h: 26px; --gap: 3px;
+  --w: 36px; --h: 20px; --gap: 2.5px;
   flex: none; width: var(--w); height: var(--h); padding: 0; border-radius: 999px;
   border: 1.5px solid var(--line); background: var(--bg-soft); cursor: pointer;
 }
