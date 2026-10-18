@@ -14,12 +14,6 @@ const compact = new Intl.NumberFormat('es', { notation: 'compact', maximumFracti
 // La hoja de estilos ya sigue el tema del sistema por defecto (prefers-color-scheme).
 // Este botón permite al usuario elegir uno a mano, y lo recuerda para la próxima visita.
 const THEME_KEY = 'feed-hayek-theme';
-const THEME_ICON = {
-  // Sol: aparece en modo claro, invita a pasar a oscuro
-  light: '<circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12H5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/>',
-  // Luna: aparece en modo oscuro, invita a pasar a claro
-  dark: '<path d="M20 14.7A8.5 8.5 0 0 1 9.3 4a8.5 8.5 0 1 0 10.7 10.7z"/>',
-};
 
 function systemPrefersDark() {
   return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -32,10 +26,8 @@ function effectiveTheme() {
 function paintThemeToggle() {
   const theme = effectiveTheme();
   const btn = document.getElementById('theme-toggle');
-  const icon = document.getElementById('theme-icon');
-  if (!btn || !icon) return;
-  icon.innerHTML = THEME_ICON[theme];
-  btn.setAttribute('aria-label', theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+  if (!btn) return;
+  btn.setAttribute('aria-checked', theme === 'dark' ? 'true' : 'false');
 }
 
 function initTheme() {

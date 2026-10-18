@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=2">
 
 <!-- Pantalla de introducción -->
 <div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="intro-title">
@@ -59,8 +59,8 @@
       <a class="brand brand-compact" href="#inicio" aria-label="Inicio"><span class="brand-mark" aria-hidden="true"></span></a>
       <h1 id="view-title">Para ti</h1>
       <a class="bubble-pill" href="#burbuja" id="bubble-pill" aria-label="Ver tu burbuja"></a>
-      <button class="icon-btn theme-toggle" id="theme-toggle" aria-label="Cambiar a modo oscuro">
-        <svg id="theme-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+      <button class="theme-switch" id="theme-toggle" role="switch" aria-checked="false" aria-label="Modo oscuro">
+        <span class="theme-switch-track"><span class="theme-switch-thumb"></span></span>
       </button>
     </header>
 
@@ -223,5 +223,5 @@
   </nav>
 </div>
 
-<script src="data.js"></script>
-<script src="app.js"></script>
+<script src="data.js?v=2"></script>
+<script src="app.js?v=2"></script>
