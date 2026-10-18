@@ -10,6 +10,49 @@ const pct = x => Math.round(x * 100) + '%';
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const compact = new Intl.NumberFormat('es', { notation: 'compact', maximumFractionDigits: 1 });
 
+/* ---------- modo claro / oscuro ---------- */
+// La hoja de estilos ya sigue el tema del sistema por defecto (prefers-color-scheme).
+// Este botón permite al usuario elegir uno a mano, y lo recuerda para la próxima visita.
+const THEME_KEY = 'feed-hayek-theme';
+const THEME_ICON = {
+  // Sol: aparece en modo claro, invita a pasar a oscuro
+  light: '<circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12H5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/>',
+  // Luna: aparece en modo oscuro, invita a pasar a claro
+  dark: '<path d="M20 14.7A8.5 8.5 0 0 1 9.3 4a8.5 8.5 0 1 0 10.7 10.7z"/>',
+};
+
+function systemPrefersDark() {
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
+function effectiveTheme() {
+  return document.documentElement.getAttribute('data-theme') || (systemPrefersDark() ? 'dark' : 'light');
+}
+
+function paintThemeToggle() {
+  const theme = effectiveTheme();
+  const btn = document.getElementById('theme-toggle');
+  const icon = document.getElementById('theme-icon');
+  if (!btn || !icon) return;
+  icon.innerHTML = THEME_ICON[theme];
+  btn.setAttribute('aria-label', theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+}
+
+function initTheme() {
+  let saved = null;
+  try { saved = localStorage.getItem(THEME_KEY); } catch (e) { /* almacenamiento bloqueado: seguimos con el del sistema */ }
+  if (saved === 'light' || saved === 'dark') document.documentElement.setAttribute('data-theme', saved);
+  paintThemeToggle();
+  const toggle = document.getElementById('theme-toggle');
+  if (toggle) toggle.addEventListener('click', () => {
+    const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem(THEME_KEY, next); } catch (e) { /* no pasa nada si no se puede recordar */ }
+    paintThemeToggle();
+  });
+}
+initTheme();
+
 function weightedPick(entries) {
   const total = entries.reduce((s, [, w]) => s + w, 0);
   let r = Math.random() * total;

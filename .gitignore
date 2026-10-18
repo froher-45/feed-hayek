@@ -6,3 +6,6 @@ desktop.ini
 
 # Sin uso actual en la app (se conserva local por si se necesita)
 logo-universidad.png
+
+# Trabajo escrito (documentacion academica): es personal, no parte del sitio publico
+*.docx
