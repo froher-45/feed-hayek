@@ -2,7 +2,7 @@
 
 Simulador de algoritmos de recomendación y conocimiento disperso. Es una red social simulada donde cada persona puede ver cómo un algoritmo forma su burbuja de filtro, y cómo se relaciona eso con la filosofía de Friedrich Hayek.
 
-- **En línea:** http://feed-hayek.site (pronto https://feed-hayek.site, en cuanto GitHub termine de emitir el certificado)
+- **En línea:** https://feed-hayek.site
 - **Repositorio:** https://github.com/froher-45/feed-hayek (rama `develop`)
 - **Sin internet:** doble clic en `index.html`
 - **Pantalla para tu puesto en la exposición:** doble clic en `kiosco.html` (ver abajo)
@@ -22,10 +22,10 @@ Para cuando estés en un puesto con tu computadora y la gente pase caminando. Es
 **Si algún día cambias de dominio:** abre `kiosco.html` con el Bloc de notas (o cualquier editor de texto) y busca esta línea cerca del final del archivo:
 
 ```js
-const SITE_URL = 'http://feed-hayek.site';
+const SITE_URL = 'https://feed-hayek.site';
 ```
 
-Cambia la dirección, guarda el archivo y vuelve a abrirlo. El QR y el texto de abajo se generan solos a partir de esa línea. Cuando el candado de HTTPS quede activo en GitHub Pages, cambia el `http://` por `https://`.
+Cambia la dirección, guarda el archivo y vuelve a abrirlo. El QR y el texto de abajo se generan solos a partir de esa línea.
 
 **Si quieres un video en vez de la pantalla en vivo:** deja `kiosco.html` corriendo y grábala con el grabador de pantalla de Windows (**Win + Alt + R**) o con Clipchamp (viene gratis en Windows 11). Es más sencillo y se ve mejor que generar un video con IA, porque es exactamente lo que la gente verá en su teléfono.
 
